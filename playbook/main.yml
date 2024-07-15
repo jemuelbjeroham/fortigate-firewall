@@ -1,15 +1,18 @@
 - name: Fortigate Firewall Security Policy Manager
-  hosts: localhost
+  hosts: ALL
   gather_facts: no
+  connection: httpapi
+  collections:
+    - fortinet.fortios
   vars_files:
-    - vars/vars.json
+    - vars.json
   tasks:
     - name: Security Rule Creation
       include_role:
         name: rule_creation
       when: policy_state == 'present'
 
-    - name: Security Rule Deletion
-      include_role:
-        name: rule_deletion
-      when: policy_state == 'absent'
+    # - name: Security Rule Deletion
+    #   include_role:
+    #     name: rule_deletion
+    #   when: policy_state == 'absent'
